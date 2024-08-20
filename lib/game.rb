@@ -1,16 +1,46 @@
+require_relative './board'
+require_relative './computer_code_maker'
+
 class Game
 
   def initialize
     @computer_code = ComputerCodeMaker.new()
-    @generated_code = @computer_code.code
+    @code_to_guess = @computer_code.code
+    instructions
+    puts "computer code is #{@code_to_guess}"
+    play
+
   end
 
-  def feedback(array)
-    if array.length != 4
-      puts 'please enter 4 colors'
-      return feedback(array)
-    end
+  def instructions
+    puts 'Welcome to Mastermind. You will have 12 turns to guess the code'
+    puts 'Code will be selected from a combination of the following colors:'
+    puts '[red (r), green (g), blue (b), yellow (y), orange (o), purple (p)]'
+    puts 'Colors can be repeated, but cannot be left blank. i.e [r r r g] is a possible code'
+    puts 'Computer will pick and you will have to guess'
+  end
 
+  def play
+    turns = 1
+    while turns <= 12 do
+      puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with a space"
+      player_selection = gets.chomp.split(" ")
+      result = feedback(player_selection)
+      
+      if result[1] == 4
+        return puts "Winner! Guessed in #{turns} turns. Code was #{@code_to_guess}"
+      elsif turns == 12
+        return puts "reached max number of tries"
+      else
+        puts "#{player_selection} gets #{result[0]} white pegs and #{result[1]} red."
+        turns +=1
+      end
+    end  
+  end
+
+
+
+  def feedback(array)
     w_pegs = white_pegs(array)
     r_pegs = red_pegs(array)
     [w_pegs - r_pegs, r_pegs]
@@ -19,7 +49,7 @@ class Game
   def white_pegs(array)
     wp_count = 0
     array.each do |pin|
-      @generated_code.include?(pin) ? wp_count += 1 : wp_count
+      @code_to_guess.include?(pin) ? wp_count += 1 : wp_count
     end
     wp_count
   end
@@ -27,8 +57,9 @@ class Game
   def red_pegs(array)
     rp_count = 0
     array.each_with_index do |pin, index|
-      @generated_code[index] == pin ? rp_count += 1 : rp_count
+      @code_to_guess[index] == pin ? rp_count += 1 : rp_count
     end
     rp_count
   end
+
 end

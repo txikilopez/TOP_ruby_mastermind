@@ -1,11 +1,13 @@
+require_relative './board'
+require_relative './game'
+
 class ComputerCodeMaker
   PEG_COLORS = %w(r b g o y p)
-  SMALL_PEGS = %w(w r) #red for correct color and place, w for correct color wrong place
 
   attr_reader :code
 
   def initialize()
-    code
+    create_code
   end
 
   def create_code()

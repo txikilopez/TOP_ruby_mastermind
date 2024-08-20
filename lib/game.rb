@@ -2,6 +2,7 @@ require_relative './board'
 require_relative './computer_code_maker'
 
 class Game
+  @@lifes = 3
 
   def initialize
     @computer_code = ComputerCodeMaker.new()
@@ -22,14 +23,16 @@ class Game
 
   def play
     turns = 1
-    while turns <= 12 do
+    while turns <= @@lifes do
       puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with a space"
       player_selection = gets.chomp.split(" ")
+      # player_selection = check_input(player_selection)
+      
       result = feedback(player_selection)
       
       if result[1] == 4
         return puts "Winner! Guessed in #{turns} turns. Code was #{@code_to_guess}"
-      elsif turns == 12
+      elsif turns == @@lifes
         return puts "reached max number of tries"
       else
         puts "#{player_selection} gets #{result[0]} white pegs and #{result[1]} red."
@@ -37,8 +40,6 @@ class Game
       end
     end  
   end
-
-
 
   def feedback(array)
     w_pegs = white_pegs(array)
@@ -62,4 +63,15 @@ class Game
     rp_count
   end
 
+  def check_input(arr)
+    colors = ComputerCodeMaker::PEG_COLORS
+    error_message = "wrong input"
+    
+    if arr.length != 4 || !(arr - colors).empty?
+      puts error_message
+      return false
+    else
+      return true
+    end
+  end
 end

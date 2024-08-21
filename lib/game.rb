@@ -33,7 +33,7 @@ class Game
       if result[1] == 4
         return puts "Winner! Guessed in #{turns} turns. Code was #{@code_to_guess}"
       elsif turns == @@lifes
-        return puts "reached max number of tries"
+        return puts "Sorry! reached max number of tries. Code was #{@code_to_guess}"
       else
         puts "#{player_selection} gets #{result[0]} white pegs and #{result[1]} red."
         turns +=1
@@ -46,7 +46,7 @@ class Game
     error_message = "wrong input, please select 4 colors:"
     
     while arr.length != 4 || !(arr - colors).empty? do
-      puts er ror_message
+      puts error_message
       arr = gets.chomp.split(" ")
     end
     return arr
@@ -61,9 +61,11 @@ class Game
 
   def white_pegs(array)
     wp_count = 0
+    uniq_key = @code_to_guess.uniq
     array.uniq.each do |pin|
       # @code_to_guess.include?(pin) ? wp_count += 1 : wp_count
-      wp_count += @code_to_guess.count(pin)
+      # wp_count += @code_to_guess.count(pin)
+      wp_count += uniq_key.count(pin)
     end
     wp_count
   end

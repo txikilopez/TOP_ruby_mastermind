@@ -2,7 +2,7 @@ require_relative './board'
 require_relative './computer_code_maker'
 
 class Game
-  @@lifes = 3
+  @@lifes = 12
 
   def initialize
     @computer_code = ComputerCodeMaker.new()
@@ -26,7 +26,7 @@ class Game
     while turns <= @@lifes do
       puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with a space"
       player_selection = gets.chomp.split(" ")
-      # player_selection = check_input(player_selection)
+      player_selection = check_input(player_selection)
       
       result = feedback(player_selection)
       
@@ -41,16 +41,29 @@ class Game
     end  
   end
 
+  def check_input(arr)
+    colors = ComputerCodeMaker::PEG_COLORS
+    error_message = "wrong input, please select 4 colors:"
+    
+    while arr.length != 4 || !(arr - colors).empty? do
+      puts er ror_message
+      arr = gets.chomp.split(" ")
+    end
+    return arr
+  end
+
+
   def feedback(array)
     w_pegs = white_pegs(array)
     r_pegs = red_pegs(array)
-    [w_pegs - r_pegs, r_pegs]
+    [[0,w_pegs - r_pegs].max, r_pegs]
   end
 
   def white_pegs(array)
     wp_count = 0
-    array.each do |pin|
-      @code_to_guess.include?(pin) ? wp_count += 1 : wp_count
+    array.uniq.each do |pin|
+      # @code_to_guess.include?(pin) ? wp_count += 1 : wp_count
+      wp_count += @code_to_guess.count(pin)
     end
     wp_count
   end
@@ -63,15 +76,6 @@ class Game
     rp_count
   end
 
-  def check_input(arr)
-    colors = ComputerCodeMaker::PEG_COLORS
-    error_message = "wrong input"
-    
-    if arr.length != 4 || !(arr - colors).empty?
-      puts error_message
-      return false
-    else
-      return true
-    end
-  end
+  
+
 end

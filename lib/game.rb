@@ -61,11 +61,12 @@ class Game
 
   def white_pegs(array)
     wp_count = 0
-    uniq_key = @code_to_guess.uniq
+    original_array = array.dup
+    # uniq_key = @code_to_guess.uniq
     array.uniq.each do |pin|
       # @code_to_guess.include?(pin) ? wp_count += 1 : wp_count
-      # wp_count += @code_to_guess.count(pin)
-      wp_count += uniq_key.count(pin)
+      wp_count += [@code_to_guess.count(pin), original_array.count(pin)].min
+      # wp_count += uniq_key.count(pin)
     end
     wp_count
   end
@@ -77,7 +78,5 @@ class Game
     end
     rp_count
   end
-
-  
 
 end

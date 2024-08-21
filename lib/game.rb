@@ -1,5 +1,6 @@
 require_relative './board'
 require_relative './computer_code_maker'
+require 'colorize'
 
 class Game
   @@lifes = 12
@@ -8,7 +9,7 @@ class Game
     @computer_code = ComputerCodeMaker.new()
     @code_to_guess = @computer_code.code
     instructions
-    puts "computer code is #{@code_to_guess}"
+    # puts "computer code is #{@code_to_guess}"
     play
 
   end
@@ -31,14 +32,18 @@ class Game
       result = feedback(player_selection)
       
       if result[1] == 4
-        return puts "Winner! Guessed in #{turns} turns. Code was #{@code_to_guess}"
+        return puts "Winner! Guessed in #{turns} turns. Code was #{present_code(@code_to_guess)}".green
       elsif turns == @@lifes
-        return puts "Sorry! reached max number of tries. Code was #{@code_to_guess}"
+        return puts "Sorry! reached max number of tries. Code was #{present_code(@code_to_guess)}".red
       else
-        puts "#{player_selection} gets #{result[0]} white pegs and #{result[1]} red."
+        puts "#{present_code(player_selection)} gets #{result[0]} white pegs and #{result[1]} red."
         turns +=1
       end
     end  
+  end
+
+  def present_code(array)
+    "[#{array.join(" ")}]"
   end
 
   def check_input(arr)
@@ -51,7 +56,6 @@ class Game
     end
     return arr
   end
-
 
   def feedback(array)
     w_pegs = white_pegs(array)

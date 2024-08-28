@@ -4,10 +4,13 @@ require 'colorize'
 
 class Game
   @@lifes = 12
+  @@prior_turns = []
+  @@flags = []
 
   def initialize
     @computer_code = ComputerCodeMaker.new()
     @code_to_guess = @computer_code.code
+    puts `clear`
     instructions
     # puts "computer code is #{@code_to_guess}"
     play
@@ -15,11 +18,13 @@ class Game
   end
 
   def instructions
-    puts 'Welcome to Mastermind. You will have 12 turns to guess the code'
+    puts 'Welcome to Mastermind. You will have 12 turns to guess the code.'
     puts 'Code will be selected from a combination of the following colors:'
     puts '[red (r), green (g), blue (b), yellow (y), orange (o), purple (p)]'
-    puts 'Colors can be repeated, but cannot be left blank. i.e [r r r g] is a possible code'
+    puts 'Colors can be repeated, i.e [r r r g] is a possible code'
     puts 'Computer will pick and you will have to guess'
+    puts 'Each guess will be scored as follows:'
+    puts 'Red means right color in right spot. White means right color in wrong spot'
   end
 
   def play
@@ -31,12 +36,18 @@ class Game
       
       result = feedback(player_selection)
       
+      @@prior_turns.push(player_selection)
+      @@flags.push(": #{result[0]}w, #{result[1]}r")
+
+
       if result[1] == 4
         return puts "Winner! Guessed in #{turns} turns. Code was #{present_code(@code_to_guess)}".green
       elsif turns == @@lifes
         return puts "Sorry! reached max number of tries. Code was #{present_code(@code_to_guess)}".red
       else
         puts "#{present_code(player_selection)} gets #{result[0]} white pegs and #{result[1]} red."
+        puts "\nPrior choices below:"
+        prior_choices(turns)
         turns +=1
       end
     end  
@@ -45,6 +56,13 @@ class Game
   def present_code(array)
     "[#{array.join(" ")}]"
   end
+
+  def prior_choices(turn)
+    @@prior_turns.each_with_index do |play, idx|
+      puts "#{idx+1}.- #{present_code(play)}#{@@flags[idx]}"
+    end
+  end
+
 
   def check_input(arr)
     colors = ComputerCodeMaker::PEG_COLORS

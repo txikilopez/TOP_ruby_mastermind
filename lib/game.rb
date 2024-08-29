@@ -1,5 +1,6 @@
 require_relative './board'
 require_relative './computer_code_maker'
+require_relative './instructions'
 require 'colorize'
 
 class Game
@@ -8,29 +9,22 @@ class Game
   @@flags = []
 
   def initialize
-    @computer_code = ComputerCodeMaker.new()
-    @code_to_guess = @computer_code.code
-    puts `clear`
-    instructions
-    # puts "computer code is #{@code_to_guess}"
-    play
+    Instructions.new(@@lifes)
+    who_plays = gets.chomp.to_i
 
+    if who_plays == 1
+      @computer_code = ComputerCodeMaker.new()
+      @code_to_guess = @computer_code.code
+      human_guess
+    else
+      puts "work in progess"
+    end
   end
 
-  def instructions
-    puts 'Welcome to Mastermind. You will have 12 turns to guess the code.'
-    puts 'Code will be selected from a combination of the following colors:'
-    puts '[red (r), green (g), blue (b), yellow (y), orange (o), purple (p)]'
-    puts 'Colors can be repeated, i.e [r r r g] is a possible code'
-    puts 'Computer will pick and you will have to guess'
-    puts 'Each guess will be scored as follows:'
-    puts 'Red means right color in right spot. White means right color in wrong spot'
-  end
-
-  def play
+  def human_guess
     turns = 1
     while turns <= @@lifes do
-      puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with a space"
+      puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with a space and press Enter"
       player_selection = gets.chomp.split(" ")
       player_selection = check_input(player_selection)
       

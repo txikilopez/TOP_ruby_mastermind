@@ -3,7 +3,6 @@ require_relative './game'
 
 class ComputerCodeMaker
   PEG_COLORS = %w(r b g o y p)
-
   attr_reader :code
 
   def initialize()

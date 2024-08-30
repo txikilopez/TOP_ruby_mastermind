@@ -1,4 +1,6 @@
-class HumanGuess
+require_relative './game'
+
+class HumanGuess < Game
   @@prior_turns = []
   @@flags = []
 
@@ -32,10 +34,6 @@ class HumanGuess
         turns +=1
       end
     end  
-  end
-
-  def present_code(array)
-    "[#{array.join(" ")}]"
   end
 
   def prior_choices(turn)
@@ -82,3 +80,4 @@ class HumanGuess
     rp_count
   end
 end
+

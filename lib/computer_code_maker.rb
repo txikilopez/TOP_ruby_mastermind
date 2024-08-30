@@ -1,5 +1,5 @@
-require_relative './board'
-require_relative './game'
+# require_relative './human_guess'
+# require_relative './game'
 
 class ComputerCodeMaker
   PEG_COLORS = %w(r b g o y p)
@@ -8,7 +8,7 @@ class ComputerCodeMaker
   def initialize()
     create_code
   end
-
+private
   def create_code()
     @code = []
     4.times do |i|

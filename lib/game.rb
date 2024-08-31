@@ -1,15 +1,16 @@
+require 'colorize'
 require_relative './computer_code_maker'
 require_relative './instructions'
 require_relative './human_guess'
 require_relative './computer_guess'
-require 'colorize'
 
 class Game
   LIFE = 12
   COLORS = ComputerCodeMaker::PEG_COLORS
-  attr_accessor :human_code 
-
+  # attr_accessor :human_code 
   def initialize
+    # puts ComputerCodeMaker.ancestors
+    # puts ComputerGuess.ancestors
     Instructions.new(LIFE)
     who_plays = gets.chomp.to_i
 
@@ -24,13 +25,5 @@ class Game
       ComputerGuess.new(LIFE, human_code)
     end
   end
-
-  def present_code(array)
-    "[#{array.join(" ")}]"
-  end
-
 end
-
-
-
 

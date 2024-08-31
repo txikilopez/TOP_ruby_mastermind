@@ -1,6 +1,13 @@
-require_relative './game'
+require_relative './guesser'
+# require_relative '../main'
 
-class ComputerGuess < Game
+# require_relative './computer_guess'
+
+# require_relative './instructions'
+require_relative './computer_code_maker'
+
+
+class ComputerGuess < Guesser
   def initialize(lives, code)
     @life = lives
     @code_to_guess = code

@@ -1,6 +1,11 @@
-require_relative './game'
+require_relative './guesser'
+# require_relative '../main'
+# require_relative './human_guess'
+# require_relative './computer_guess'
+require_relative './computer_code_maker'
+# require_relative './instructions'
 
-class HumanGuess < Game
+class HumanGuess < Guesser
   @@prior_turns = []
   @@flags = []
 
@@ -80,4 +85,12 @@ class HumanGuess < Game
     rp_count
   end
 end
+
+
+
+
+
+
+
+
 

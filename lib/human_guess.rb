@@ -1,9 +1,5 @@
 require_relative './guesser'
-# require_relative '../main'
-# require_relative './human_guess'
-# require_relative './computer_guess'
 require_relative './computer_code_maker'
-# require_relative './instructions'
 
 class HumanGuess < Guesser
   @@prior_turns = []

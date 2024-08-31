@@ -1,9 +1,4 @@
 require_relative './guesser'
-# require_relative '../main'
-
-# require_relative './computer_guess'
-
-# require_relative './instructions'
 require_relative './computer_code_maker'
 
 

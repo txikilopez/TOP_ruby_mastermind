@@ -3,9 +3,9 @@ require_relative './computer_code_maker'
 require_relative './instructions'
 require_relative './human_guess'
 require_relative './computer_guess'
-require_relative './guesser'
+require_relative './rules'
 
-class Game < Guesser
+class Game < Rules
   LIFE = 12
   COLORS = ComputerCodeMaker::PEG_COLORS
   # attr_accessor :human_code 

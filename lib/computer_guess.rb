@@ -1,8 +1,8 @@
-require_relative './guesser'
+require_relative './rules'
 require_relative './computer_code_maker'
 
 
-class ComputerGuess < Guesser
+class ComputerGuess < Rules
   def initialize(lives, code)
     @life = lives
     @code_to_guess = code

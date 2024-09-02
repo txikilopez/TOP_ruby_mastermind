@@ -7,14 +7,13 @@ class HumanGuess < Guesser
 
   def initialize(lives, code_input)
     @code_to_guess = code_input
-    play(lives)
-
+    human_play(lives)
   end
 
-  def play(lives)
+  def human_play(lives)
     turns = 1
     while turns <= lives do
-      puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with a space and press Enter"
+      puts "\nTurn #{turns}. Select 4 colors from [r g b y o p]. Separate with space and press Enter"
       player_selection = gets.chomp.split(" ")
       player_selection = check_input(player_selection)
       
@@ -22,7 +21,6 @@ class HumanGuess < Guesser
       
       @@prior_turns.push(player_selection)
       @@flags.push(": #{result[0]}w, #{result[1]}r")
-
 
       if result[1] == 4
         return puts "Winner! Guessed in #{turns} turns. Code was #{present_code(@code_to_guess)}".green
@@ -41,18 +39,6 @@ class HumanGuess < Guesser
     @@prior_turns.each_with_index do |play, idx|
       puts "#{idx+1}.- #{present_code(play)}#{@@flags[idx]}"
     end
-  end
-
-
-  def check_input(arr)
-    colors = ComputerCodeMaker::PEG_COLORS
-    error_message = "wrong input, please select 4 colors:"
-    
-    while arr.length != 4 || !(arr - colors).empty? do
-      puts error_message
-      arr = gets.chomp.split(" ")
-    end
-    return arr
   end
 
   def feedback(array)

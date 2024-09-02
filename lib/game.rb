@@ -3,8 +3,9 @@ require_relative './computer_code_maker'
 require_relative './instructions'
 require_relative './human_guess'
 require_relative './computer_guess'
+require_relative './guesser'
 
-class Game
+class Game < Guesser
   LIFE = 12
   COLORS = ComputerCodeMaker::PEG_COLORS
   # attr_accessor :human_code 
@@ -22,6 +23,7 @@ class Game
       puts 'Please enter code to be guessed:'
       puts '(choose from [red (r), green (g), blue (b), yellow (y), orange (o), purple (p)])'
       human_code = gets.chomp.split
+      human_code = check_input(human_code)
       ComputerGuess.new(LIFE, human_code)
     end
   end

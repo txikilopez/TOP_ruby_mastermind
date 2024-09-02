@@ -6,10 +6,10 @@ class ComputerGuess < Guesser
   def initialize(lives, code)
     @life = lives
     @code_to_guess = code
-    computer_guess
+    computer_play
   end
   
-  def computer_guess
+  def computer_play
     turn = 1
     while turn <= @life do
       computer_code_guess = ComputerCodeMaker.new()

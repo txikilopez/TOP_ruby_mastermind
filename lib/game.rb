@@ -14,6 +14,7 @@ class Game < Rules
     # puts ComputerGuess.ancestors
     Instructions.new(LIFE)
     who_plays = gets.chomp.to_i
+    who_plays = check_who_plays(who_plays)
 
     if who_plays == 1
       computer_code = ComputerCodeMaker.new()

@@ -26,7 +26,7 @@ class ComputerGuess < Rules
       elsif turn == @life
         puts "\nTurn #{turn}. Code guessed: #{present_code(code_guessed)}"
         prior_choices(@@turns_chosen, @@flags)
-        return puts "computer didn't guess after 12 turns. Code was #{key_code}".red
+        return puts "computer didn't guess after 12 turns. Code was #{present_code(key_code)}".red
       else
         puts "Turn #{turn}. Code guessed: #{present_code(code_guessed)}"
         turn += 1

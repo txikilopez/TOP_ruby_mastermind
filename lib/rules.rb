@@ -5,6 +5,16 @@ class Rules
     "[#{array.join(" ")}]"
   end
 
+  def check_who_plays(number)
+    # puts number.class
+    while number != 1 && number != 2
+      puts "Please select 1 or 2"
+      number = gets.chomp.to_i
+    end
+    return number
+    
+  end
+
   def check_input(arr)
     colors = ComputerCodeMaker::PEG_COLORS
     error_message = "wrong input, please select 4 colors:"

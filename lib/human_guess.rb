@@ -26,23 +26,16 @@ class HumanGuess < Rules
       if result[1] == 4
         return puts "Winner! Guessed in #{turns} turns. Code was #{present_code(generated_code)}".green
       elsif turns == lives
+        puts "#{present_code(player_selection)} gets #{result[0]} white pegs and #{result[1]} red."
         return puts "Sorry! reached max number of tries. Code was #{present_code(generated_code)}".red
       else
         puts "#{present_code(player_selection)} gets #{result[0]} white pegs and #{result[1]} red."
         puts "\nPrior choices below:"
-        prior_choices(turns)
+        prior_choices(@@prior_turns, @@flags)
         turns +=1
       end
     end  
   end
-
-  def prior_choices(turn)
-    @@prior_turns.each_with_index do |play, idx|
-      puts "#{idx+1}.- #{present_code(play)}#{@@flags[idx]}"
-    end
-  end
-
-  
 end
 
 

@@ -39,4 +39,11 @@ class Rules
     rp_count
   end
 
+  def prior_choices(choices, flag_array)
+    choices.each_with_index do |play, idx|
+      puts "#{idx+1}.- #{present_code(play)}#{flag_array[idx]}"
+    end
+  end
+
+
 end
